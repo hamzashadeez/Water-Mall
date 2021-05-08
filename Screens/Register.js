@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Ionicons} from '@expo/vector-icons'
 import {Pressable, StyleSheet, Text, TextInput, View, ActivityIndicator} from 'react-native';
 
@@ -9,9 +9,14 @@ const Register = ({navigation}) => {
   const [confirm, setConfirm] = useState('');
   const [loading, setLoading] = useState(false);
 
+  useEffect(()=>{
+    setLoading(false)
+  }, [])
+
   const register = () => {
     // alert('hey');
-    setLoading(true)
+    navigation.navigate('Main');
+    // setLoading(true)
 };
   return (
     <View style={styles.container}>
@@ -19,7 +24,7 @@ const Register = ({navigation}) => {
         style={{
           fontSize: 25,
           textAlign: 'center',
-          marginTop: 10,
+          marginTop: 30,
           letterSpacing: 1,
           color: 'white'
         }}>
@@ -100,8 +105,8 @@ const Register = ({navigation}) => {
           )}
         </Pressable>
       <View style={{marginTop: 20, flexDirection: "row", justifyContent: 'space-around', alignItems: "center"}}>
-          <Text style={{color: "seagreen", fontSize: 17}}>New User?</Text>
-          <Pressable style={styles.login} onPress={()=> navigation.navigate('login')}>
+          <Text style={{color: "seagreen", fontSize: 17}}>Have an account already?</Text>
+          <Pressable style={styles.login} onPress={()=> navigation.navigate('Login')}>
             <Text style={{color: "white",fontSize: 17}}>Log in</Text>
           </Pressable>
         </View>

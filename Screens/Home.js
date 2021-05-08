@@ -1,12 +1,15 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from "react-native";
 import styled from "styled-components";
 import HomeHeader from "../Components/HomeHeader";
 import Uncomming from "../Components/Uncomming";
+import {Data} from '../data'
 
-const Product = ({ url, name, price }) => {
+
+const Product = ({ url, name, price, navigation }) => {
+  const data = {url, name, price}
   return (
-    <View style={styles.product}>
+    <TouchableOpacity onPress={()=>navigation.navigate("Product", {data:data})} style={styles.product}>
       <Image
         source={url}
         style={{ height: 200, width: "100%" }}
@@ -15,11 +18,11 @@ const Product = ({ url, name, price }) => {
         <Text style={{fontSize: 17, fontWeight: "800"}}>{name}</Text>
         <Text style={{fontSize: 15, fontWeight: 'bold', color: 'seagreen'}}>{price}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
-const Home = () => {
+const Home = ({navigation}) => {
   return (
     <View style={styles.container}>
       <HomeHeader />
@@ -28,26 +31,7 @@ const Home = () => {
       </Text>
       <ScrollView style={{ flex: 1 }}>
         <Uncomming />
-        <Product
-          name="Snickers"
-          price="$300.66"
-          url={require("../assets/1.jpg")}
-        />
-        <Product
-          name="Apple Airpod"
-          price="$200.66"
-          url={require("../assets/apple.jpg")}
-        />
-        <Product
-          name="Snickers"
-          price="$300.66"
-          url={require("../assets/2.jpg")}
-        />
-        <Product
-          name="Snickers"
-          price="$300.66"
-          url={require("../assets/3.jpg")}
-        />
+        {Data.map(d=><Product name={d.name} key={d.name} price={d.price} url={d.source} navigation={navigation} />)}
       </ScrollView>
     </View>
   );

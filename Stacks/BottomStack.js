@@ -4,6 +4,8 @@ import {Ionicons} from '@expo/vector-icons'
 import Home from '../Screens/Home'
 import Profile from "../Screens/Profile";
 import Cart from "../Screens/Cart";
+import HomeStack from "./HomeStack";
+import CartStack from "./CartStack";
 
 const BottomStack = () => {
   const Tab = createBottomTabNavigator();
@@ -31,8 +33,8 @@ const BottomStack = () => {
         activeTintColor: 'dodgerblue',
         inactiveTintColor: 'gray',
       }}>
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Cart" component={Cart} />
+      <Tab.Screen name="Home" component={HomeStack} />
+      <Tab.Screen name="Cart" component={CartStack} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );

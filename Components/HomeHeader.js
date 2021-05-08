@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
   },
   header: {
     display: "flex",
+    marginTop: 15,
     alignItems: "center",
     flexDirection: "row",
   },

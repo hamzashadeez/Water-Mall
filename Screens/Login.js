@@ -1,17 +1,27 @@
-import React, {useState} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {Ionicons} from '@expo/vector-icons'
 import {Pressable, StyleSheet, Text, TextInput, View, ActivityIndicator} from 'react-native';
+import {UserContext} from '../UserContext'
+import {Log} from '../log'
 
 const Register = ({navigation}) => {
   const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [confirm, setConfirm] = useState('');
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useContext(UserContext)
+
+  
+  useEffect(()=>{
+    setLoading(false)
+  }, [])
 
   const Login = () => {
     // alert('hey');
-    setLoading(true)
+    const data = {}
+    setUser({...data, isSigned: true});
+    navigation.navigate('Main');
+    console.log(user)
+    // setLoading(true)
 };
   return (
     <View style={styles.container}>
@@ -19,7 +29,7 @@ const Register = ({navigation}) => {
         style={{
           fontSize: 25,
           textAlign: 'center',
-          marginTop: 10,
+          marginTop: 30,
           letterSpacing: 1,
           color: 'white'
         }}>
@@ -32,7 +42,7 @@ const Register = ({navigation}) => {
           fontSize: 15,
           color: 'white'
         }}>
-        Welcome to Water Mall
+        Login in to Water Mall
       </Text>
       <View style={styles.innerContainer}>
         {/* <Image alt='img' style={styles.img} source={require('../../assets/img/logo.png')}/> */}
@@ -50,20 +60,7 @@ const Register = ({navigation}) => {
             onChange={e => setEmail(e.nativeEvent.text)}
           />
         </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            // marginBottom: SIZES.s2,
-            alignItems: 'center',
-          }}>
-          <Ionicons name="person-sharp" size={20} color='gray' />
-          <TextInput
-            style={styles.input}
-            placeholder="Enter Username"
-            onChange={e => setUsername(e.nativeEvent.text)}
-            value={username}
-          />
-        </View>
+        
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Ionicons name="lock-closed" size={20} color="gray" />
           <TextInput
@@ -74,16 +71,7 @@ const Register = ({navigation}) => {
             onChange={e => setPassword(e.nativeEvent.text)}
           />
         </View>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Ionicons name="lock-closed" size={20} color='gray' />
-          <TextInput
-            style={styles.input}
-            placeholder="Confirm Password"
-            secureTextEntry={true}
-            value={confirm}
-            onChange={e => setConfirm(e.nativeEvent.text)}
-          />
-        </View>
+      
         {/* SignUp Button */}
         <Pressable style={styles.btn} onPress={() => Login()}>
           {loading ? (
@@ -101,8 +89,8 @@ const Register = ({navigation}) => {
         </Pressable>
       <View style={{marginTop: 20, flexDirection: "row", justifyContent: 'space-around', alignItems: "center"}}>
           <Text style={{color: "seagreen", fontSize: 17}}>New User?</Text>
-          <Pressable style={styles.login} onPress={()=> navigation.navigate('login')}>
-            <Text style={{color: "white",fontSize: 17}}>Log in</Text>
+          <Pressable style={styles.login} onPress={()=> navigation.navigate('Register')}>
+            <Text style={{color: "white",fontSize: 17}}>Register</Text>
           </Pressable>
         </View>
       </View>
